@@ -73,6 +73,7 @@
                 <version>0.11.0</version>
                 <configuration>
                     <functionTarget>org.bullla.poc.pub.HolidayFunction</functionTarget>
+                    <port>8081</port>
                 </configuration>
             </plugin>
         </plugins>

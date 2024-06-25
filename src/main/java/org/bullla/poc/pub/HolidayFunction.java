@@ -8,6 +8,7 @@ import com.google.cloud.functions.HttpFunction;
 import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
 import com.google.cloud.pubsub.v1.Publisher;
+import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
@@ -40,7 +41,7 @@ public class HolidayFunction implements HttpFunction {
             writer.write("Holiday: " + holiday.getName() + "\n");
             writer.write("Date: " + holiday.getDate() + "\n");
             writer.write("Description: " + holiday.getDescription() + "\n");
-            publisher(holiday.toString());
+            publisher(new Gson().toJson(holiday));
         }
     }
 
