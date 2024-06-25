@@ -1,4 +1,4 @@
-package org.bullla;
+package org.bullla.poc.pub;
 
 import feign.RequestLine;
 

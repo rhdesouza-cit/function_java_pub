@@ -72,7 +72,7 @@
                 <artifactId>function-maven-plugin</artifactId>
                 <version>0.11.0</version>
                 <configuration>
-                    <functionTarget>org.bullla.HolidayFunction</functionTarget>
+                    <functionTarget>org.bullla.poc.pub.HolidayFunction</functionTarget>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,4 +1,4 @@
-package org.bullla;
+package org.bullla.poc.pub;
 
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.core.NoCredentialsProvider;
