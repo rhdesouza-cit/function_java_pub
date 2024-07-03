@@ -1,0 +1,4 @@
+PROJECT_ID: bullla-one-d-apps-cn-92c3
+TOPIC_ID: topic1-poc-java
+PUBSUB_EMULATOR_HOST: topic1-poc-java
+EXTERNAL_SERVICE: http://10.52.226.200

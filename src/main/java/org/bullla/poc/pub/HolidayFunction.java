@@ -24,10 +24,10 @@ import java.util.concurrent.TimeUnit;
 
 public class HolidayFunction implements HttpFunction {
 
-    private static final String EXTERNAL_SERVICE = "http://localhost:3000";
-    private static final String EMULATOR_HOST = "localhost:8085";
-    private static final String PROJECT_ID = "localstack";
-    private static final String TOPIC_ID = "topic1";
+    private static final String EXTERNAL_SERVICE = System.getenv("EXTERNAL_SERVICE");
+    private static final String EMULATOR_HOST = System.getenv("EMULATOR_HOST");
+    private static final String PROJECT_ID = System.getenv("PROJECT_ID");
+    private static final String TOPIC_ID = System.getenv("TOPIC_ID");
 
     private static Logger logger = LoggerFactory.getLogger(HolidayFunction.class);
 
@@ -41,28 +41,32 @@ public class HolidayFunction implements HttpFunction {
             writer.write("Holiday: " + holiday.getName() + "\n");
             writer.write("Date: " + holiday.getDate() + "\n");
             writer.write("Description: " + holiday.getDescription() + "\n");
+            logger.info("holiday:" + writer);
             publisher(new Gson().toJson(holiday));
         }
     }
 
     private void publisher(String message) throws InterruptedException {
-        var channel = ManagedChannelBuilder.forTarget(EMULATOR_HOST).usePlaintext().build();
-        var channelProvider = FixedTransportChannelProvider.create(GrpcTransportChannel.create(channel));
-        var credentialsProvider = NoCredentialsProvider.create();
+        // var channel =
+        // ManagedChannelBuilder.forTarget(EMULATOR_HOST).usePlaintext().build();
+        // var channelProvider =
+        // FixedTransportChannelProvider.create(GrpcTransportChannel.create(channel));
+        // var credentialsProvider = NoCredentialsProvider.create();
 
         TopicName topicName = TopicName.of(PROJECT_ID, TOPIC_ID);
         Publisher publisher = null;
         try {
             // Create a publisher instance with default settings bound to the topic
             publisher = Publisher.newBuilder(topicName)
-                .setChannelProvider(channelProvider)
-                .setCredentialsProvider(credentialsProvider)
-                .build();
+                    // .setChannelProvider(channelProvider)
+                    // .setCredentialsProvider(credentialsProvider)
+                    .build();
 
             ByteString data = ByteString.copyFromUtf8(message);
             PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
 
-            // Once published, returns a server-assigned message id (unique within the topic)
+            // Once published, returns a server-assigned message id (unique within the
+            // topic)
             ApiFuture<String> messageIdFuture = publisher.publish(pubsubMessage);
             String messageId = messageIdFuture.get();
 

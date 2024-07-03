@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface HolidayClient {
 
-    @RequestLine("GET /messages-holiday")
+    @RequestLine("GET /v1/json-server/gets")
     List<Holiday> getHoliday();
 
 }
